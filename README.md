@@ -8,12 +8,12 @@ Steps to run this project:
 
 3) Rode os seguintes comandos:
 
-´´´console
+```
 fulano@pc:~/Dev/todo$ yarn
 instala as dependências
 
 fulano@pc:~/Dev/todo$ yarn start
 inicializa o projeto!
-´´´
+```
 
 4) Enjoy!!
