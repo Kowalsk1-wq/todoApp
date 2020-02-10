@@ -1,0 +1,24 @@
+{
+   "type": "<DATABASE DIALECT>",
+   "host": "localhost",
+   "port": <DB PORT>,
+   "username": "<YOUR USER>",
+   "password": "<YOUR PASSWORD>",
+   "database": "<DB NAME>",
+   "synchronize": true,
+   "logging": false,
+   "entities": [
+      "src/app/database/entity/**/*.ts"
+   ],
+   "migrations": [
+      "src/app/database/migration/**/*.ts"
+   ],
+   "subscribers": [
+      "src/app/database/subscriber/**/*.ts"
+   ],
+   "cli": {
+      "entitiesDir": "src/app/database/entity",
+      "migrationsDir": "src/app/database/migration",
+      "subscribersDir": "src/app/database/subscriber"
+   }
+}
