@@ -41,7 +41,7 @@ class TaskController {
 
   async changeStatus(req: any, res: any) {
     const { id } = req.params;
-    const { status } = await req.query.status;
+    const { status } = await req.query;
 
     if (id.length === 36 && typeof id === "string") {
       const tasktarget = await getConnection()
@@ -61,14 +61,20 @@ class TaskController {
             .createQueryBuilder()
             .update(Task)
             .set({
-              status: () => `${status}`
+              status
             })
             .where("id = :id", { id })
             .execute();
 
           return res.json({
             ok: `Tarefa com status ${status}!`,
-            task: taskChange
+            task: {
+              id: tasktarget.id,
+              description: tasktarget.description,
+              status,
+              insertedAt: tasktarget.insertedAt
+            },
+            affected: taskChange.affected
           });
         } else {
           return res.json({
@@ -91,6 +97,8 @@ class TaskController {
     const { id } = req.params;
     const { description } = req.body;
 
+    console.log(description);
+
     if (id.length === 36 && typeof id === "string") {
       const tasktarget = await getConnection()
         .createQueryBuilder()
@@ -104,7 +112,7 @@ class TaskController {
           .createQueryBuilder()
           .update(Task)
           .set({
-            description: () => `${description}`
+            description
           })
           .where("id = :id", { id })
           .execute();
@@ -112,7 +120,13 @@ class TaskController {
         return res.json({
           ok: "Tarefa Atualizada com Sucesso!",
           antes: tasktarget,
-          agora: taskUp
+          agora: {
+            id: tasktarget.id,
+            description,
+            status: tasktarget.status,
+            insertedAt: tasktarget.insertedAt
+          },
+          affected: taskUp.affected
         });
       } else {
         return res.json({
